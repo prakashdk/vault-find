@@ -1,0 +1,38 @@
+{
+  "folders": [
+    {
+      "id": "c1c51e9ad5c04e4cb57b239eaf8ae8aa",
+      "name": "General",
+      "created_at": "2026-01-13T12:12:04.152966",
+      "entities": [
+        {
+          "title": "CCC FE Repo",
+          "description": "ClubOps Command Center Frontend Repository Link. Repo name is inclub-sre-portal-fe. Keys are InClub, SRE Protal.",
+          "data_type": "link",
+          "data": "https://gecgithub01.walmart.com/sresamsinclub/inclub-sre-portal-fe",
+          "id": "6ac78e42d7c34c879384f253e043aba1",
+          "created_at": "2026-01-13T12:04:24.846036",
+          "folder_name": "General",
+          "folder_id": "c1c51e9ad5c04e4cb57b239eaf8ae8aa"
+        }
+      ]
+    },
+    {
+      "id": "84e067e0554d44c495bd63e1fa454a33",
+      "name": "Enterprises",
+      "created_at": "2026-01-13T12:28:44.339685",
+      "entities": [
+        {
+          "title": "CCC Backend Startup command",
+          "description": "CCC common services spring boot app Startup Command with all keys",
+          "data_type": "note",
+          "data": "PINGFED_CLIENT_SECRET=331c40f5-7357-4aae-a296-e3b936a4a39c \\\r\nSERVICENOW_AUTH_CONSUMER_ID=4a91d08a-dc54-4d77-8913-3a19de8984fc \\\r\nSERVICENOW_AUTH_PRIVATE_KEY=MIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQCG3HgTcC8krdh9FAUeBQARyxZkzYpZncAHH5lFXm/efhzci2avDRwY0ukyaxCbUyPBlDSsyV4JdouReZ9xSj0PX6pPA+2HMAUzYZLwqgVAWHb+xFWD8kQCC9C5nrHDbZyROavQksGafTPOL+my4JhaC/rK71PXa2X/Ty6wJUuXfKAe8+UPFbPUaspgNircMsE+7oI2rrzOcW55sNqVbDPnpztON2Aca2KTF/EZlxcPnCtCW/WA0ZVOx+jD/l092Xc3U3rSMN981IonDy53awoEGMY3LM19uFTTopa1GacbPI9V+I9uBCOJpmRHnaLQQdY+2NWNy0CK3/75cnz+fyG/AgMBAAECggEAN9PouVNFkM+OwSiafbTgNH14Bb64uSR+q/Q+xOK1OMvIMtxaY7jvmq8k7kQ4GbSvJqGttKGflhdG67AHeySaZlTZ8d/UYpRUctK/u3UGu35jtE+efwK5eIdfnpe9SwODPvM61xsJnmSaH47iFbS4HP68kWnFsXW6QZiL4UtvIYRLMvV5H23nQ2LoI4ikGArjZwxrZvwoVGgXQ5kXI5COEXRFRGtG5FNLfX/JC5WkjsIsyYNq1WFJ065ifirUrYfOqHBRz8Q6JWcY13KI9MTp51dbY1+KtwOP9n74qIFNp6NmZ95x+w6m5EkhKXjMUmY1dMQLjCvQy1KwVde02d4kQQKBgQD6At8LfcMzGd+Lv1BNUcwlv9WJwik3JRsOtVozKZ+iHd1bb81uTYPjC5gWXRQ2TctQOxkfQ8fZuQBoyb6VCdikiGALspuLnwbEPyc6dOsN6u8iad3B/3yUmkxc/kTEblFVji9bxgA3tL4W5M04ShZxdOo6UE2NXtte07FTbOP0MQKBgQCKF3hmQCmejaVGFC4hUp/e3tZd3E2qy+NjttKeKuadz0bzsmYjjw7no6AtXUaxiQqqRAvSSWEUjtBBQqYeEVl2pFETNyd5VL4uso9+7xAayCur0NQ+SqJsu7cfbifO1P5EaYyuLbyt9chM6JR2HoAEfoFHAxGqubIet7YAns6o7wKBgQDNfRKqtUF9fOSaTjLIelTbKiNvSODrbFoi6rgqmSmV7AoGn4wv/xJJyTvGFdcJE0Pqu8hYRDO9JivJ9RfqE9+2zEh1FOZ4Cctb/bRWfca89755gJ4+V6mj0na1cGBBO5MqSOVv/vwqzSn4UzLB81MjCb+DEoHLko2oEUMMmNF74QKBgA8mYAknxOkmNRmpIR56yBtVa0NE5ih00e+goR7FKiPqF6ioy9fe3A3Bv9L6RsU3eboQWROrBUGSIXrnav4lfSEtCdAH3wbKq0rIQEH2zFeD2naxJHfpDETNm1uRZECm0XaD9fEuB2M2cdEuOwtycS0NC/XUel22nboNAaSzx4x1AoGBAIDjZ0tBpfd/qpUUArP/NMaPjo0zE8wSevtrn4kNgpKOZW5DhERvPBCAhijvKnaBBlMlApUNt4+i73omHQ6u1Z+AwxFUuIy5BTxWJ92ET2pIqaYY0w06f1q6Hfs2ZMDI6TPL53T0WzHIQ4E68S8PjCej4JhsEaIrB75a+0N2bedJ \\\r\nSERVICENOW_AUTH_SERVICE_NAME=SERVICEMANAGEMENT-INCIDENT \\\r\nSERVICENOW_AUTH_USERNAME=svcsn_inc_meshos \\\r\nSERVICENOW_AUTH_PASSWORD=CCC-Samsinclub@2026 \\\r\nmvn spring-boot:run -Dspring-boot.run.profiles=dev",
+          "folder_name": "Enterprises",
+          "id": "e684e3ed3acc4ac1b24d4d101affe567",
+          "folder_id": "84e067e0554d44c495bd63e1fa454a33",
+          "created_at": "2026-01-13T13:17:53.046845"
+        }
+      ]
+    }
+  ]
+}

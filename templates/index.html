@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vault Find</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600&display=swap" rel="stylesheet" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        grotesk: ['\'Space Grotesk\'', 'system-ui', 'sans-serif'],
+                    },
+                    colors: {
+                        vault: {
+                            dark: '#020617',
+                            panel: '#0f172a',
+                            accent: '#5de4c7',
+                        },
+                    },
+                },
+            },
+        };
+    </script>
+    <link rel="stylesheet" href="{{ request.url_for('static', path='css/app.css') }}" />
+</head>
+<body class="bg-slate-950 text-slate-50 font-grotesk">
+    <div class="w-full px-4 sm:px-6 lg:px-12 py-10 flex flex-col gap-6 min-h-screen">
+        <header class="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
+            <div>
+                <p class="text-sm uppercase tracking-[0.3em] text-slate-400">Vault Find</p>
+                <h1 class="text-3xl sm:text-4xl font-semibold mt-2">Augmented memory for personal vaults</h1>
+                <p class="text-slate-400 mt-2 max-w-2xl">Capture links or multiline secure notes once, then recall them with natural language. Keep everything in one secure backend.</p>
+            </div>
+                        <div class="flex flex-wrap gap-3">
+                <a href="/export" class="inline-flex items-center justify-center rounded-full border border-white/20 px-6 py-3 text-slate-100 font-semibold hover:bg-white/10 transition">
+                    Download JSON
+                </a>
+                                <button type="button" id="copy-schema-button" class="inline-flex items-center justify-center rounded-full border border-white/20 px-6 py-3 text-slate-100 font-semibold hover:bg-white/10 transition">
+                                        Copy Schema
+                                </button>
+                <form id="import-form" method="post" action="/import" enctype="multipart/form-data" class="relative">
+                    <input id="import-file" name="file" type="file" accept="application/json" class="hidden" />
+                    <button type="button" id="import-trigger" class="inline-flex items-center justify-center rounded-full border border-white/20 px-6 py-3 text-slate-100 font-semibold hover:bg-white/10 transition">
+                        Upload JSON
+                    </button>
+                </form>
+                <button id="open-entity-modal" class="inline-flex items-center justify-center rounded-full bg-gradient-to-r from-vault-accent to-emerald-400 px-6 py-3 text-slate-950 font-semibold shadow-[0_10px_45px_rgba(93,228,199,0.35)]">
+                    + Add Data
+                </button>
+            </div>
+        </header>
+
+                {% if error_message %}
+        <div class="rounded-3xl border border-red-500/30 bg-red-500/10 text-red-100 px-6 py-4 flex items-center gap-3" role="alert">
+            <span class="h-3 w-3 rounded-full bg-red-400 animate-pulse"></span>
+            <p>{{ error_message }}</p>
+        </div>
+        {% endif %}
+
+        {% if success_message %}
+        <div class="rounded-3xl border border-emerald-400/30 bg-emerald-400/10 text-emerald-100 px-6 py-4 flex items-center gap-3" role="status">
+            <span class="h-3 w-3 rounded-full bg-emerald-300 animate-pulse"></span>
+            <p>{{ success_message }}</p>
+        </div>
+        {% endif %}
+
+        <div class="grid lg:grid-cols-[360px_1fr] gap-6 flex-1 min-h-[70vh]">
+            <aside class="bg-white/5 border border-white/5 rounded-3xl p-5 flex flex-col">
+                <div class="flex items-center justify-between mb-4">
+                    <div>
+                        <p class="text-xs uppercase tracking-[0.4em] text-slate-500">Folders</p>
+                        <h2 class="text-lg font-semibold">Knowledge tree</h2>
+                    </div>
+                    <span class="text-xs uppercase tracking-wide text-slate-400">{{ folders|length }} total</span>
+                </div>
+                <div class="space-y-3 overflow-y-auto pr-1" id="folder-tree">
+                    {% if folders %}
+                        {% for folder in folders %}
+                        <article class="rounded-2xl border border-white/5 bg-slate-900/70 p-3 shadow-lg" data-folder-container>
+                            <button
+                                type="button"
+                                class="w-full flex items-center justify-between text-left rounded-2xl px-3 py-2 hover:bg-white/5 transition"
+                                data-folder-toggle
+                                data-target="folder-{{ folder.id }}"
+                                aria-expanded="false"
+                            >
+                                <div>
+                                    <p class="text-sm font-semibold">{{ folder.name }}</p>
+                                    <p class="text-xs text-slate-500">{{ folder.entities|length }} item{{ 's' if folder.entities|length != 1 else '' }}</p>
+                                </div>
+                                <svg class="w-4 h-4 text-slate-400 transition-transform" data-folder-icon fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+                                </svg>
+                            </button>
+                            <div id="folder-{{ folder.id }}" class="hidden flex-col gap-1 mt-2" data-folder-entities>
+                                {% if folder.entities %}
+                                    {% for entity in folder.entities %}
+                                    <button
+                                        type="button"
+                                        class="flex items-center justify-between rounded-2xl border border-white/5 bg-slate-950/70 px-3 py-2 text-left text-sm hover:border-emerald-400/40"
+                                        data-entity-open
+                                        data-entity-id="{{ entity.id }}"
+                                    >
+                                        <span class="truncate">{{ entity.title }}</span>
+                                        <span class="text-xs uppercase tracking-wide text-slate-500">{{ entity.data_type }}</span>
+                                    </button>
+                                    {% endfor %}
+                                {% else %}
+                                    <p class="text-xs text-slate-500 px-3 py-2">Empty folder</p>
+                                {% endif %}
+                            </div>
+                        </article>
+                        {% endfor %}
+                    {% else %}
+                        <p class="text-sm text-slate-400">No folders yet. Add your first entity to create one.</p>
+                    {% endif %}
+                </div>
+            </aside>
+
+            <section class="bg-white/5 border border-white/5 rounded-3xl flex flex-col overflow-hidden">
+                <div class="p-6 border-b border-white/5">
+                    <div class="flex items-center gap-2 text-sm text-slate-400">
+                        <span class="h-2 w-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                        Retrieval ready
+                    </div>
+                    <h2 class="text-2xl font-semibold mt-2">Ask anything about your vault</h2>
+                </div>
+
+                <div class="flex-1 overflow-y-auto p-6 space-y-6">
+                    {% if query_result %}
+                        <div class="space-y-4">
+                            <div class="rounded-2xl border border-white/10 bg-slate-900/70 p-4">
+                                <p class="text-xs uppercase tracking-[0.4em] text-slate-500">Question</p>
+                                <p class="text-lg text-slate-100 mt-1">{{ query_result.question }}</p>
+                                <p class="text-xs text-slate-500 mt-2">{{ query_result.matches|length }} match{{ 'es' if query_result.matches|length != 1 else '' }}</p>
+                            </div>
+                            {% if query_result.matches %}
+                                <div class="flex flex-wrap gap-3">
+                                    {% for match in query_result.matches %}
+                                    <button
+                                        type="button"
+                                        class="rounded-full border border-white/15 bg-slate-950/70 px-4 py-2 text-sm text-slate-100 hover:bg-white/10 flex items-center gap-2"
+                                        data-match-open
+                                        data-entity-id="{{ match.entity_id }}"
+                                    >
+                                        <span class="font-semibold">{{ match.title }}</span>
+                                        <span class="text-[10px] uppercase tracking-[0.3em] text-slate-400">{{ match.folder_name }}</span>
+                                    </button>
+                                    {% endfor %}
+                                </div>
+                            {% else %}
+                                <div class="rounded-2xl border border-dashed border-white/10 p-6 text-center text-slate-500">
+                                    <p>No matching entities found. Try refining the query.</p>
+                                </div>
+                            {% endif %}
+                        </div>
+                    {% else %}
+                        <div class="h-full flex items-center justify-center text-center text-slate-500">
+                            <div>
+                                <p class="text-sm uppercase tracking-[0.3em]">No search yet</p>
+                                <p class="mt-2 text-lg text-slate-300">Ask a question like "Give me the Amazon ecomm site"</p>
+                            </div>
+                        </div>
+                    {% endif %}
+                </div>
+
+                <form id="query-form" method="post" action="/query" class="border-t border-white/5 p-4">
+                    <div class="flex gap-3 items-end">
+                        <textarea id="question" name="question" rows="2" placeholder="Drop your question here..."
+                            class="flex-1 resize-none rounded-2xl border border-white/10 bg-slate-950/60 p-4 text-base text-slate-100 focus:border-emerald-400 focus:ring-emerald-400/40" required></textarea>
+                        <button type="submit" data-loading-btn class="h-[52px] w-[140px] rounded-2xl bg-gradient-to-r from-vault-accent to-cyan-400 text-slate-950 font-semibold shadow-lg flex items-center justify-center gap-2">
+                            <span data-loading-default>Send</span>
+                            <span data-loading-spinner class="hidden items-center gap-2">
+                                <span class="h-4 w-4 border-2 border-slate-900 border-t-transparent rounded-full animate-spin"></span>
+                                Sending
+                            </span>
+                        </button>
+                    </div>
+                </form>
+            </section>
+        </div>
+    </div>
+
+    <div id="entity-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center">
+        <div id="entity-modal-overlay" class="absolute inset-0 bg-slate-950/80 backdrop-blur-sm"></div>
+        <div class="relative bg-slate-950 border border-white/10 rounded-3xl p-8 w-full max-w-2xl shadow-2xl">
+            <div class="flex items-center justify-between">
+                <div>
+                    <p class="text-xs uppercase tracking-[0.4em] text-slate-400">New Entry</p>
+                    <h2 class="text-2xl font-semibold mt-1">Capture entity data</h2>
+                </div>
+                <button id="close-entity-modal" class="text-slate-400 hover:text-white text-2xl">&times;</button>
+            </div>
+            <form id="entity-form" method="post" action="/entities" class="mt-6 space-y-4">
+                <div>
+                    <label for="title" class="block text-sm font-semibold mb-1 text-slate-300">Title</label>
+                    <input id="title" name="title" type="text" required class="w-full rounded-2xl border border-white/10 bg-slate-900 p-3 text-slate-100" />
+                </div>
+                <div>
+                    <label for="description" class="block text-sm font-semibold mb-1 text-slate-300">Description</label>
+                    <textarea id="description" name="description" rows="3" required class="w-full rounded-2xl border border-white/10 bg-slate-900 p-3 text-slate-100"></textarea>
+                </div>
+                <div>
+                    <label for="folder_name" class="block text-sm font-semibold mb-1 text-slate-300">Folder</label>
+                    <input id="folder_name" name="folder_name" list="folder-options" placeholder="Search or type to create" required class="w-full rounded-2xl border border-white/10 bg-slate-900 p-3 text-slate-100" />
+                    <datalist id="folder-options">
+                        {% for name in folder_names %}
+                        <option value="{{ name }}"></option>
+                        {% endfor %}
+                    </datalist>
+                    <p class="text-xs text-slate-500 mt-1">Choose an existing folder or type a new label.</p>
+                </div>
+                <div class="grid md:grid-cols-2 gap-4">
+                    <div>
+                        <label for="data_type" class="block text-sm font-semibold mb-1 text-slate-300">Data Type</label>
+                        <select id="data_type" name="data_type" required class="w-full rounded-2xl border border-white/10 bg-slate-900 p-3 text-slate-100">
+                            <option value="link">Link</option>
+                            <option value="note">Secure Note</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="data" class="block text-sm font-semibold mb-1 text-slate-300">Data</label>
+                        <textarea id="data" name="data" rows="3" required class="w-full rounded-2xl border border-white/10 bg-slate-900 p-3 text-slate-100"></textarea>
+                    </div>
+                </div>
+                <div class="flex justify-end gap-3 pt-4">
+                    <button id="close-entity-modal-secondary" type="button" class="px-5 py-3 rounded-2xl border border-white/10 text-slate-300">Cancel</button>
+                    <button type="submit" data-loading-btn class="px-6 py-3 rounded-2xl bg-gradient-to-r from-vault-accent to-cyan-400 text-slate-950 font-semibold flex items-center gap-2">
+                        <span data-loading-default>Save Entity</span>
+                        <span data-loading-spinner class="hidden items-center gap-2">
+                            <span class="h-4 w-4 border-2 border-slate-900 border-t-transparent rounded-full animate-spin"></span>
+                            Saving
+                        </span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div id="entity-detail-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center">
+        <div id="entity-detail-overlay" class="absolute inset-0 bg-slate-950/80 backdrop-blur-sm"></div>
+        <div class="relative bg-slate-950 border border-white/10 rounded-3xl p-8 w-full max-w-3xl shadow-2xl">
+            <div class="flex items-center justify-between">
+                <div>
+                    <p class="text-xs uppercase tracking-[0.4em] text-slate-500">Entity Detail</p>
+                    <h2 class="text-2xl font-semibold mt-1" data-entity-field="title"></h2>
+                </div>
+                <button id="close-entity-detail-modal" class="text-slate-400 hover:text-white text-2xl">&times;</button>
+            </div>
+            <div class="mt-6 space-y-4 text-sm">
+                <div class="grid sm:grid-cols-2 gap-4">
+                    <div class="rounded-2xl border border-white/10 p-4">
+                        <p class="text-xs uppercase tracking-[0.3em] text-slate-500">Folder</p>
+                        <p class="text-lg text-slate-100" data-entity-field="folder_name"></p>
+                    </div>
+                    <div class="rounded-2xl border border-white/10 p-4">
+                        <p class="text-xs uppercase tracking-[0.3em] text-slate-500">Data Type</p>
+                        <p class="text-lg text-slate-100" data-entity-field="data_type"></p>
+                    </div>
+                </div>
+                <div class="rounded-2xl border border-white/10 p-4">
+                    <p class="text-xs uppercase tracking-[0.3em] text-slate-500">Description</p>
+                    <p class="text-slate-100 mt-2" data-entity-field="description"></p>
+                </div>
+                <div class="rounded-2xl border border-white/10 p-4">
+                    <div class="flex items-center justify-between">
+                        <p class="text-xs uppercase tracking-[0.3em] text-slate-500">Data</p>
+                        <button
+                            id="copy-entity-data"
+                            type="button"
+                            class="flex items-center gap-1 text-xs uppercase tracking-[0.3em] text-emerald-300 hover:text-white"
+                            title="Copy data"
+                        >
+                            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                                <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                                <path d="M5 15H4a2 2 0 0 1-2-2V4c0-1.1.9-2 2-2h9a2 2 0 0 1 2 2v1"></path>
+                            </svg>
+                            Copy
+                        </button>
+                    </div>
+                    <pre class="mt-2 whitespace-pre-wrap text-slate-100" data-entity-field="data"></pre>
+                    <p id="copy-feedback" class="mt-2 text-[10px] uppercase tracking-[0.4em] text-emerald-400 hidden">Copied</p>
+                </div>
+                <div class="text-xs text-slate-500">Created <span data-entity-field="created_at"></span></div>
+                <div class="flex justify-end pt-4">
+                    <button id="delete-entity-button" type="button" class="inline-flex items-center gap-2 rounded-2xl border border-red-500/40 px-5 py-3 text-sm text-red-200 hover:bg-red-500/10">
+                        Delete Entity
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+        <script>
+                window.__VAULT_ENTITIES__ = {{ entities_payload | safe }};
+        </script>
+        <script id="vault-schema-template" type="application/json">{
+    "schema_version": "1.0",
+    "exported_at": "2024-01-01T00:00:00Z",
+    "folders": [
+        {
+            "id": "...",
+            "name": "Work",
+            "created_at": "...",
+            "entities": [
+                {
+                    "id": "...",
+                    "title": "Amazon",
+                    "folder_name": "Work",
+                    "data_type": "link",
+                    "data": "https://amazon.com"
+                }
+            ]
+        }
+    ]
+}</script>
+    <script src="{{ request.url_for('static', path='js/app.js') }}"></script>
+</body>
+</html>
