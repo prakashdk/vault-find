@@ -1,36 +1,257 @@
 {
   "folders": [
     {
-      "id": "c1c51e9ad5c04e4cb57b239eaf8ae8aa",
-      "name": "General",
-      "created_at": "2026-01-13T12:12:04.152966",
+      "id": "d74a79340d9346b1a46cbb83862a7def",
+      "name": "Personal - Walmart",
+      "created_at": "2026-01-21T13:05:14.708970",
       "entities": [
         {
-          "title": "CCC FE Repo",
-          "description": "ClubOps Command Center Frontend Repository Link. Repo name is inclub-sre-portal-fe. Keys are InClub, SRE Protal.",
+          "id": "978c387bae5746e4aaecefe3e8730a2b",
+          "title": "ME Site",
+          "description": "A Website that has URL's for all other websites which is called a ME site. A toolbox to see Me@Campus, Workday, Total Rewards Statement, Apply Leave, My Payslip, Medibuddy Portal, Concur (Needs VPN), Performance Tool, IJP/Referral, My Stocks, ULearn for IDC, ServiceNow - HR & Finance, Badgify, Open Door for IDC, eCrew ticket, Raise IT Ticket, HR Policies, Xcelerate, ARGs, Onboarding Tool, The Spark Square, Salary, Health & Wellness, Benefits, Recognition, Learning & Culture, Career & Performance,  My Tools, My Career, My Pay, My Benefits, My Work, New to Walmart, Relocation, Marriage, Parenthood, Caregiving, LGBTQ, Health Concern, Bereavement, Separation/Divorce ",
           "data_type": "link",
-          "data": "https://gecgithub01.walmart.com/sresamsinclub/inclub-sre-portal-fe",
-          "id": "6ac78e42d7c34c879384f253e043aba1",
-          "created_at": "2026-01-13T12:04:24.846036",
-          "folder_name": "General",
-          "folder_id": "c1c51e9ad5c04e4cb57b239eaf8ae8aa"
+          "data": "https://internal.walmart.com/content/me-idc/en_in.html",
+          "folder_name": "Personal - Walmart",
+          "folder_id": "d74a79340d9346b1a46cbb83862a7def",
+          "created_at": "2026-01-21T12:51:38.859569"
+        },
+        {
+          "id": "b525fd2bf6014490bcfd4ba863f11ad7",
+          "title": "Onboarding",
+          "description": "A dedicate website for Onboarding to complete tasks for 90 days from date of joining",
+          "data_type": "link",
+          "data": "https://idc-onboarding.walmart.com/",
+          "folder_name": "Personal - Walmart",
+          "folder_id": "d74a79340d9346b1a46cbb83862a7def",
+          "created_at": "2026-01-21T12:53:48.177194"
+        },
+        {
+          "title": "My Tech Website",
+          "description": "A platform you can rely on to help you manage all your technology, get support for your device and applications here, password and account,\r\nenroll and manage your security information to prevent data breaches and to work from anywhere. Browse, manage and request installation of Walmart approved apps for your device or VDI, Enterprise licenses, Accessories and Order hardware",
+          "data_type": "link",
+          "data": "https://mytech.walmart.com",
+          "folder_name": "Personal - Walmart",
+          "id": "45c88556914a4655bd1ff7453f12ce97",
+          "folder_id": "d74a79340d9346b1a46cbb83862a7def",
+          "created_at": "2026-01-21T13:12:06.138577"
         }
       ]
     },
     {
-      "id": "84e067e0554d44c495bd63e1fa454a33",
-      "name": "Enterprises",
-      "created_at": "2026-01-13T12:28:44.339685",
+      "id": "f3b2fbaa7d464a978cf4778e217afeea",
+      "name": "Walmart Apps",
+      "created_at": "2026-01-21T13:05:42.984901",
       "entities": [
         {
+          "id": "e684e3ed3acc4ac1b24d4d101affe567",
           "title": "CCC Backend Startup command",
           "description": "CCC common services spring boot app Startup Command with all keys",
           "data_type": "note",
           "data": "PINGFED_CLIENT_SECRET=331c40f5-7357-4aae-a296-e3b936a4a39c \\\r\nSERVICENOW_AUTH_CONSUMER_ID=4a91d08a-dc54-4d77-8913-3a19de8984fc \\\r\nSERVICENOW_AUTH_PRIVATE_KEY=MIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQCG3HgTcC8krdh9FAUeBQARyxZkzYpZncAHH5lFXm/efhzci2avDRwY0ukyaxCbUyPBlDSsyV4JdouReZ9xSj0PX6pPA+2HMAUzYZLwqgVAWHb+xFWD8kQCC9C5nrHDbZyROavQksGafTPOL+my4JhaC/rK71PXa2X/Ty6wJUuXfKAe8+UPFbPUaspgNircMsE+7oI2rrzOcW55sNqVbDPnpztON2Aca2KTF/EZlxcPnCtCW/WA0ZVOx+jD/l092Xc3U3rSMN981IonDy53awoEGMY3LM19uFTTopa1GacbPI9V+I9uBCOJpmRHnaLQQdY+2NWNy0CK3/75cnz+fyG/AgMBAAECggEAN9PouVNFkM+OwSiafbTgNH14Bb64uSR+q/Q+xOK1OMvIMtxaY7jvmq8k7kQ4GbSvJqGttKGflhdG67AHeySaZlTZ8d/UYpRUctK/u3UGu35jtE+efwK5eIdfnpe9SwODPvM61xsJnmSaH47iFbS4HP68kWnFsXW6QZiL4UtvIYRLMvV5H23nQ2LoI4ikGArjZwxrZvwoVGgXQ5kXI5COEXRFRGtG5FNLfX/JC5WkjsIsyYNq1WFJ065ifirUrYfOqHBRz8Q6JWcY13KI9MTp51dbY1+KtwOP9n74qIFNp6NmZ95x+w6m5EkhKXjMUmY1dMQLjCvQy1KwVde02d4kQQKBgQD6At8LfcMzGd+Lv1BNUcwlv9WJwik3JRsOtVozKZ+iHd1bb81uTYPjC5gWXRQ2TctQOxkfQ8fZuQBoyb6VCdikiGALspuLnwbEPyc6dOsN6u8iad3B/3yUmkxc/kTEblFVji9bxgA3tL4W5M04ShZxdOo6UE2NXtte07FTbOP0MQKBgQCKF3hmQCmejaVGFC4hUp/e3tZd3E2qy+NjttKeKuadz0bzsmYjjw7no6AtXUaxiQqqRAvSSWEUjtBBQqYeEVl2pFETNyd5VL4uso9+7xAayCur0NQ+SqJsu7cfbifO1P5EaYyuLbyt9chM6JR2HoAEfoFHAxGqubIet7YAns6o7wKBgQDNfRKqtUF9fOSaTjLIelTbKiNvSODrbFoi6rgqmSmV7AoGn4wv/xJJyTvGFdcJE0Pqu8hYRDO9JivJ9RfqE9+2zEh1FOZ4Cctb/bRWfca89755gJ4+V6mj0na1cGBBO5MqSOVv/vwqzSn4UzLB81MjCb+DEoHLko2oEUMMmNF74QKBgA8mYAknxOkmNRmpIR56yBtVa0NE5ih00e+goR7FKiPqF6ioy9fe3A3Bv9L6RsU3eboQWROrBUGSIXrnav4lfSEtCdAH3wbKq0rIQEH2zFeD2naxJHfpDETNm1uRZECm0XaD9fEuB2M2cdEuOwtycS0NC/XUel22nboNAaSzx4x1AoGBAIDjZ0tBpfd/qpUUArP/NMaPjo0zE8wSevtrn4kNgpKOZW5DhERvPBCAhijvKnaBBlMlApUNt4+i73omHQ6u1Z+AwxFUuIy5BTxWJ92ET2pIqaYY0w06f1q6Hfs2ZMDI6TPL53T0WzHIQ4E68S8PjCej4JhsEaIrB75a+0N2bedJ \\\r\nSERVICENOW_AUTH_SERVICE_NAME=SERVICEMANAGEMENT-INCIDENT \\\r\nSERVICENOW_AUTH_USERNAME=svcsn_inc_meshos \\\r\nSERVICENOW_AUTH_PASSWORD=CCC-Samsinclub@2026 \\\r\nmvn spring-boot:run -Dspring-boot.run.profiles=dev",
-          "folder_name": "Enterprises",
-          "id": "e684e3ed3acc4ac1b24d4d101affe567",
-          "folder_id": "84e067e0554d44c495bd63e1fa454a33",
+          "folder_name": "Walmart Apps",
+          "folder_id": "f3b2fbaa7d464a978cf4778e217afeea",
           "created_at": "2026-01-13T13:17:53.046845"
+        },
+        {
+          "id": "6ac78e42d7c34c879384f253e043aba1",
+          "title": "CCC FE Repo",
+          "description": "ClubOps Command Center Frontend Repository Link. Repo name is inclub-sre-portal-fe. Keys are InClub, SRE Protal.",
+          "data_type": "link",
+          "data": "https://gecgithub01.walmart.com/sresamsinclub/inclub-sre-portal-fe",
+          "folder_name": "Walmart Apps",
+          "folder_id": "f3b2fbaa7d464a978cf4778e217afeea",
+          "created_at": "2026-01-13T12:04:24.846036"
+        },
+        {
+          "title": "CCC Backend Repo",
+          "description": "ClubOps Command Center Backend repository website",
+          "data_type": "link",
+          "data": "https://gecgithub01.walmart.com/sresamsinclub/ccc-common-services",
+          "folder_name": "Walmart Apps",
+          "id": "0419c36ee3eb4da78601ddd71c24bb5e",
+          "folder_id": "f3b2fbaa7d464a978cf4778e217afeea",
+          "created_at": "2026-01-21T13:39:18.425779"
+        }
+      ]
+    },
+    {
+      "id": "81da25518f514755a6619995b1d5e29c",
+      "name": "Walmart Services - Tools",
+      "created_at": "2026-01-21T13:16:02.888702",
+      "entities": [
+        {
+          "title": "Akeyless",
+          "description": "Manage secrets not your vaults, with a cloud-native SaaS solution.\r\nZero infrastructure required.",
+          "data_type": "link",
+          "data": "https://akeyless.gw.prod.glb.us.walmart.net:18888",
+          "folder_name": "Walmart Services - Tools",
+          "id": "b1e18191fe4d428eb92e57993a34a317",
+          "folder_id": "81da25518f514755a6619995b1d5e29c",
+          "created_at": "2026-01-21T13:16:02.888726"
+        },
+        {
+          "title": "Service Now",
+          "description": "Walmart Service Now Base Portal",
+          "data_type": "link",
+          "data": "https://walmartglobal.service-now.com/wm_sp",
+          "folder_name": "Walmart Services - Tools",
+          "id": "40b249e00dd64f8988146aaed5812e5a",
+          "folder_id": "81da25518f514755a6619995b1d5e29c",
+          "created_at": "2026-01-21T13:28:32.228316"
+        },
+        {
+          "title": "Active Directory Request Guide",
+          "description": "WHOIS tool, LDAP Tool, ServiceNow Request for AD group membership",
+          "data_type": "link",
+          "data": "https://gecgithub01.walmart.com/developer-portal/wcnp-standalone-lab/wiki/Setup-Your-Active-Directory-Group",
+          "folder_name": "Walmart Services - Tools",
+          "id": "154eafcd2b8440cbb5b665318230296a",
+          "folder_id": "81da25518f514755a6619995b1d5e29c",
+          "created_at": "2026-01-21T13:32:28.515295"
+        },
+        {
+          "title": "DX Tools",
+          "description": "Developer Experience Website that has OneOps, Data Discovery Trino, GitHub, LooperPro, WCNP, Pipeline Visualizer, Walmart Commerce Platform (WCP), Testhub, Testburst, Team Productivity, Wibey, CosmosDB, Kafka, Service Mesh, GitHub Copilot",
+          "data_type": "link",
+          "data": "https://dx.walmart.com/mydx/home",
+          "folder_name": "Walmart Services - Tools",
+          "id": "732b6e6ff1f24130b0b3017b987b6458",
+          "folder_id": "81da25518f514755a6619995b1d5e29c",
+          "created_at": "2026-01-21T13:36:26.846596"
+        },
+        {
+          "title": "Azure Active Directiory",
+          "description": "Azure Portal, Active Directory",
+          "data_type": "link",
+          "data": "https://aad.portal.azure.com",
+          "folder_name": "Walmart Services - Tools",
+          "id": "cbe20436f867482eb5fd064c40c0f0fa",
+          "folder_id": "81da25518f514755a6619995b1d5e29c",
+          "created_at": "2026-01-21T13:38:06.585396"
+        },
+        {
+          "title": "Jira",
+          "description": "Walmart Jira Board to check sprints, stories, tasks and backlogs for work",
+          "data_type": "link",
+          "data": "https://jira.walmart.com",
+          "folder_name": "Walmart Services - Tools",
+          "id": "9309121350db49d88f5f5baac720a698",
+          "folder_id": "81da25518f514755a6619995b1d5e29c",
+          "created_at": "2026-01-21T13:40:35.868845"
+        },
+        {
+          "title": "Kubernetes Dashboard",
+          "description": "Kubernetes Dashboard",
+          "data_type": "link",
+          "data": "https://k8s-dashboard.kube-system.uscentral-lab-aks-001.cluster.k8s.us.walmart.net/",
+          "folder_name": "Walmart Services - Tools",
+          "id": "6d1e89f85392429e98be8b840aa82c0e",
+          "folder_id": "81da25518f514755a6619995b1d5e29c",
+          "created_at": "2026-01-21T13:44:17.407136"
+        },
+        {
+          "title": "PingFed",
+          "description": "PingFed, WebAuth,  Services Authentication",
+          "data_type": "link",
+          "data": "https://webauthssp.wal-mart.com",
+          "folder_name": "Walmart Services - Tools",
+          "id": "ef28c790e3b54636b82e82f8a3f6c10e",
+          "folder_id": "81da25518f514755a6619995b1d5e29c",
+          "created_at": "2026-01-21T13:49:53.022567"
+        },
+        {
+          "title": "Concord",
+          "description": "CI/CD pipeline",
+          "data_type": "link",
+          "data": "https://concord.prod.walmart.com",
+          "folder_name": "Walmart Services - Tools",
+          "id": "f67a967a4f284df9b7c2ebf44447602c",
+          "folder_id": "81da25518f514755a6619995b1d5e29c",
+          "created_at": "2026-01-22T04:00:59.447947"
+        }
+      ]
+    },
+    {
+      "id": "4194fa392b2b4eb79081435569e2f663",
+      "name": "Walmart Handy Tools",
+      "created_at": "2026-01-21T13:25:04.043342",
+      "entities": [
+        {
+          "title": "Walmart AI",
+          "description": "To find AI applications, AI agents in walmart or anything related to AI in walmart",
+          "data_type": "link",
+          "data": "https://ai.walmart.com",
+          "folder_name": "Walmart Handy Tools",
+          "id": "9e4049ab7cfd4b1cbc502ebf08a8a845",
+          "folder_id": "4194fa392b2b4eb79081435569e2f663",
+          "created_at": "2026-01-21T13:25:04.043438"
+        },
+        {
+          "title": "Pass Pass",
+          "description": "To share secrets, passwords and credentials securely",
+          "data_type": "link",
+          "data": "https://passpass.walmart.com",
+          "folder_name": "Walmart Handy Tools",
+          "id": "a705c0408c0d49d592894135c6bddd13",
+          "folder_id": "4194fa392b2b4eb79081435569e2f663",
+          "created_at": "2026-01-21T13:30:05.793571"
+        },
+        {
+          "title": "ULearn",
+          "description": "Internal Course Platform",
+          "data_type": "link",
+          "data": "https://ulearn-int.prod.walmart.com/",
+          "folder_name": "Walmart Handy Tools",
+          "id": "8ec929645f08481283d54c9d026cc55b",
+          "folder_id": "4194fa392b2b4eb79081435569e2f663",
+          "created_at": "2026-01-21T13:33:29.920185"
+        },
+        {
+          "title": "Sam's Club Confluence",
+          "description": "Confluence page with Sam's club details, Sam's Club SRE use cases and guidelines",
+          "data_type": "link",
+          "data": "https://confluence.walmart.com/pages/viewpage.action?spaceKey=SACOS&title=FY26+-+Incident+Reduction",
+          "folder_name": "Walmart Handy Tools",
+          "id": "bdef4bd7d4454d6193b892360843aaee",
+          "folder_id": "4194fa392b2b4eb79081435569e2f663",
+          "created_at": "2026-01-21T13:48:30.494811"
+        },
+        {
+          "title": "Blogs",
+          "description": "All Walmart Blogs, News, Announcements, Wins, Releases, Decommissioning",
+          "data_type": "link",
+          "data": "https://dx.walmart.com/blogs",
+          "folder_name": "Walmart Handy Tools",
+          "id": "1849d4e1710c4ceb8b835f24f055047f",
+          "folder_id": "4194fa392b2b4eb79081435569e2f663",
+          "created_at": "2026-01-22T03:59:32.973487"
+        }
+      ]
+    },
+    {
+      "id": "5f7c9909bf04422080b0e53bd8b4687f",
+      "name": "Bin",
+      "created_at": "2026-01-21T13:45:38.016217",
+      "entities": [
+        {
+          "title": "Service Now API Integration Request",
+          "description": "Service Now API Integration Request",
+          "data_type": "link",
+          "data": "https://walmartglobal.service-now.com/now/nav/ui/classic/params/target/x_wms_intg_mgmt_integration_request.do%3Fsys_id%3D1ca2e8623b71be50c83f24b693e45a3f",
+          "folder_name": "Bin",
+          "id": "5520b7b0123b4f39bfd3b179d7d2ce08",
+          "folder_id": "5f7c9909bf04422080b0e53bd8b4687f",
+          "created_at": "2026-01-21T13:45:38.016258"
+        },
+        {
+          "title": "Service Now API Reference",
+          "description": "Details of ServiceNow APIs",
+          "data_type": "link",
+          "data": "https://walmartglobal.service-now.com/wm_sp?id=kb_article_view&sys_kb_id=41edb13b833a26180dfa36647daad361#_Toc71123701",
+          "folder_name": "Bin",
+          "id": "bc38ad9a04824aa4bce78581b1809b79",
+          "folder_id": "5f7c9909bf04422080b0e53bd8b4687f",
+          "created_at": "2026-01-21T13:46:57.777744"
         }
       ]
     }

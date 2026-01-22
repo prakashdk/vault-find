@@ -74,6 +74,64 @@ class EntityRepository:
             self._write_raw(content)
         return removed
 
+    def delete_folder(self, folder_id: str) -> None:
+        content = self._read_raw()
+        folders = content.get("folders", [])
+        for index, folder in enumerate(folders):
+            if folder.get("id") != folder_id:
+                continue
+            if folder.get("entities"):
+                raise ValueError("Folder must be empty before deletion")
+            folders.pop(index)
+            self._write_raw(content)
+            return
+        raise ValueError(f"Folder {folder_id} not found")
+
+    def update_entity(self, entity_id: str, data: EntityBase) -> Entity:
+        content = self._read_raw()
+        current_folder = None
+        current_index = None
+        current_entity = None
+        for folder in content.get("folders", []):
+            for idx, entity in enumerate(folder.get("entities", [])):
+                if entity.get("id") == entity_id:
+                    current_folder = folder
+                    current_index = idx
+                    current_entity = entity
+                    break
+            if current_entity:
+                break
+
+        if not current_entity or current_folder is None or current_index is None:
+            raise ValueError(f"Entity {entity_id} not found")
+
+        target_folder = current_folder
+        desired_folder_name = data.folder_name.strip()
+        if desired_folder_name and desired_folder_name.lower() != current_folder["name"].lower():
+            target_folder = self._get_or_create_folder(content, desired_folder_name)
+            # remove from original folder
+            current_folder["entities"].pop(current_index)
+
+        updated_payload = {
+            "id": entity_id,
+            "title": data.title,
+            "description": data.description,
+            "data_type": data.data_type,
+            "data": data.data,
+            "folder_name": target_folder["name"],
+            "folder_id": target_folder["id"],
+            "created_at": current_entity.get("created_at", datetime.utcnow().isoformat()),
+        }
+
+        target_entities = target_folder.setdefault("entities", [])
+        if target_folder is current_folder:
+            target_entities[current_index] = updated_payload
+        else:
+            target_entities.append(updated_payload)
+
+        self._write_raw(content)
+        return Entity(**updated_payload)
+
     def export_vault(self) -> VaultExport:
         return VaultExport(folders=self.list_folders())
 

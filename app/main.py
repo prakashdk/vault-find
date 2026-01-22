@@ -7,7 +7,7 @@ from fastapi import Depends, FastAPI, File, Form, HTTPException, Request, Upload
 from fastapi.responses import HTMLResponse, JSONResponse, RedirectResponse
 from fastapi.templating import Jinja2Templates
 from fastapi.staticfiles import StaticFiles
-from llama_rag import RAGService
+from llama_rag import RecordsService
 from pydantic import ValidationError
 
 from .models import ApiMessage, Entity, EntityBase, FolderWithEntities, QueryResponse, VaultExport
@@ -17,12 +17,14 @@ from .services import EntityService
 DATA_DIR = Path("data")
 ENTITIES_PATH = DATA_DIR / "entities.json"
 INDEX_PATH = DATA_DIR / "index"
+APP_CSS_PATH = Path("static/css/app.css")
+APP_JS_PATH = Path("static/js/app.js")
 
 templates = Jinja2Templates(directory="templates")
 
-rag_service = RAGService(index_path=INDEX_PATH, auto_load=True, auto_save=True)
+records_service = RecordsService(index_path=INDEX_PATH, auto_load=True, auto_save=True)
 repository = EntityRepository(ENTITIES_PATH)
-entity_service = EntityService(repository, rag_service)
+entity_service = EntityService(repository, records_service)
 entity_service.bootstrap_index()
 
 app = FastAPI(title="Vault Find", version="0.1.0")
@@ -76,6 +78,36 @@ async def create_entity_form(
     return RedirectResponse(url=str(request.url_for("home")), status_code=status.HTTP_303_SEE_OTHER)
 
 
+@app.post("/entities/{entity_id}", response_class=HTMLResponse)
+async def update_entity_form(
+    request: Request,
+    entity_id: str,
+    title: str = Form(...),
+    description: str = Form(...),
+    data_type: str = Form(...),
+    data: str = Form(...),
+    folder_name: str = Form(...),
+    service: EntityService = Depends(get_entity_service),
+) -> RedirectResponse:
+    payload = EntityBase(
+        title=title,
+        description=description,
+        data_type=data_type,
+        data=data,
+        folder_name=folder_name,
+    )
+    try:
+        service.update_entity(entity_id, payload)
+    except Exception as exc:  # pragma: no cover - surfaced via UI
+        context = _build_page_context(
+            request,
+            service,
+            error_message=f"Failed to update entity: {exc}",
+        )
+        return templates.TemplateResponse("index.html", context, status_code=status.HTTP_400_BAD_REQUEST)
+    return RedirectResponse(url=str(request.url_for("home")), status_code=status.HTTP_303_SEE_OTHER)
+
+
 @app.post("/query", response_class=HTMLResponse)
 async def query_form(
     request: Request,
@@ -83,7 +115,7 @@ async def query_form(
     service: EntityService = Depends(get_entity_service),
 ) -> HTMLResponse:
     try:
-        matches = service.search_entities(question)
+        matches = service.search_entities(question, k=3)
     except Exception as exc:  # pragma: no cover - surfaced via UI
         context = _build_page_context(
             request,
@@ -161,13 +193,27 @@ async def create_entity(
         raise HTTPException(status_code=400, detail=f"Failed to save entity: {exc}") from exc
 
 
+@app.put("/api/entities/{entity_id}", response_model=Entity)
+async def update_entity_api(
+    entity_id: str,
+    entity: EntityBase,
+    service: EntityService = Depends(get_entity_service),
+) -> Entity:
+    try:
+        return service.update_entity(entity_id, entity)
+    except ValueError as exc:
+        raise HTTPException(status_code=404, detail=str(exc)) from exc
+    except Exception as exc:  # pragma: no cover
+        raise HTTPException(status_code=400, detail=f"Failed to update entity: {exc}") from exc
+
+
 @app.get("/api/query", response_model=QueryResponse)
 async def query_api(
     question: str,
     service: EntityService = Depends(get_entity_service),
 ) -> QueryResponse:
     try:
-        matches = service.search_entities(question)
+        matches = service.search_entities(question, k=3)
     except Exception as exc:
         raise HTTPException(status_code=400, detail=f"Query failed: {exc}") from exc
     return QueryResponse(question=question, matches=matches)
@@ -213,6 +259,18 @@ async def delete_entity_api(
     return ApiMessage(detail="Entity deleted")
 
 
+@app.delete("/api/folders/{folder_id}", response_model=ApiMessage)
+async def delete_folder_api(
+    folder_id: str,
+    service: EntityService = Depends(get_entity_service),
+) -> ApiMessage:
+    try:
+        service.delete_folder(folder_id)
+    except ValueError as exc:
+        raise HTTPException(status_code=400, detail=str(exc)) from exc
+    return ApiMessage(detail="Folder deleted")
+
+
 def _ui_context(
     request: Request,
     entities: List[Entity],
@@ -231,6 +289,7 @@ def _ui_context(
         "folders": folders,
         "folder_names": [folder.name for folder in folders],
         "entities_payload": _entities_payload(entities),
+        "asset_versions": _asset_versions(),
     }
 
 
@@ -260,3 +319,17 @@ def _entities_payload(entities: List[Entity]) -> str:
         for entity in entities
     }
     return json.dumps(payload)
+
+
+def _asset_version(path: Path) -> str:
+    try:
+        return str(int(path.stat().st_mtime))
+    except FileNotFoundError:
+        return "0"
+
+
+def _asset_versions() -> Dict[str, str]:
+    return {
+        "css": _asset_version(APP_CSS_PATH),
+        "js": _asset_version(APP_JS_PATH),
+    }

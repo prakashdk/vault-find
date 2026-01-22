@@ -42,6 +42,7 @@ class SearchMatch(BaseModel):
     entity_id: str
     title: str
     folder_name: str
+    data_type: DataType
 
 
 class QueryResponse(BaseModel):

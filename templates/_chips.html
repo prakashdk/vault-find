@@ -1,0 +1,34 @@
+{% macro entity_chip(entity_id, title, data_type, folder_name=None, full_width=True, extra_attrs="") -%}
+    {% set type_label = 'Link entity' if data_type == 'link' else 'Secure note entity' %}
+    {% set aria_target = 'Open ' ~ title ~ ((' from ' ~ folder_name) if folder_name else '') %}
+    {% if full_width %}
+        {% set classes = 'flex w-full items-center gap-3 rounded-2xl border border-white/5 bg-slate-950/70 px-3.5 py-2.5 text-left text-sm text-slate-100 hover:border-emerald-400/40 transition' %}
+    {% else %}
+        {% set classes = 'flex items-center gap-3 rounded-2xl border border-white/5 bg-slate-950/70 px-3.5 py-2.5 text-left text-sm text-slate-100 hover:border-emerald-400/40 transition' %}
+    {% endif %}
+    <button
+        type="button"
+        class="{{ classes }}"
+        data-entity-open
+        data-entity-id="{{ entity_id }}"
+        aria-label="{{ aria_target }}"
+        {% if folder_name %}title="{{ folder_name }}"{% endif %}
+        {{ extra_attrs|safe }}
+    >
+        <span class="inline-flex h-8 w-8 items-center justify-center rounded-xl border border-white/10 bg-white/5 text-slate-200" aria-hidden="true">
+            {% if data_type == 'link' %}
+            <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M10.59 13.41a2 2 0 0 1 0-2.82l3.18-3.18a2 2 0 0 1 2.82 0l.18.18a2 2 0 0 1 0 2.82l-3.18 3.18a2 2 0 0 1-2.82 0" />
+                <path d="M13.41 10.59a2 2 0 0 1 0 2.82l-3.18 3.18a2 2 0 0 1-2.82 0l-.18-.18a2 2 0 0 1 0-2.82l3.18-3.18a2 2 0 0 1 2.82 0" />
+            </svg>
+            {% else %}
+            <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3" y="10" width="18" height="11" rx="2" />
+                <path d="M7 10V7a5 5 0 0 1 10 0v3" />
+            </svg>
+            {% endif %}
+        </span>
+        <span class="truncate font-semibold">{{ title }}</span>
+        <span class="sr-only">{{ type_label }}</span>
+    </button>
+{%- endmacro %}
