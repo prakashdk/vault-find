@@ -45,7 +45,13 @@ document.addEventListener("DOMContentLoaded", () => {
   const folderInput = document.getElementById("folder_name");
   const dataTypeSelect = document.getElementById("data_type");
   const dataInput = document.getElementById("data");
+  const themeToggleBtn = document.getElementById("theme-toggle");
+  const themeLabel = themeToggleBtn?.querySelector("[data-theme-label]");
+  const themeIconLight = themeToggleBtn?.querySelector("[data-icon-light]");
+  const themeIconDark = themeToggleBtn?.querySelector("[data-icon-dark]");
   let entityFormMode = "create";
+  let currentTheme = "dark";
+  initializeTheme();
 
   function modalVisible(modalEl) {
     return modalEl && !modalEl.classList.contains("hidden");
@@ -164,6 +170,50 @@ document.addEventListener("DOMContentLoaded", () => {
       window.open(href, "_blank", "noopener");
     }
   });
+
+  themeToggleBtn?.addEventListener("click", () => {
+    setTheme(currentTheme === "light" ? "dark" : "light");
+  });
+
+  function initializeTheme() {
+    const preferred = getPreferredTheme();
+    setTheme(preferred, false);
+  }
+
+  function getPreferredTheme() {
+    try {
+      const stored = localStorage.getItem("vault-theme");
+      if (stored === "light" || stored === "dark") {
+        return stored;
+      }
+    } catch (error) {
+      console.warn("Unable to access localStorage", error); // eslint-disable-line no-console
+    }
+    if (window.matchMedia && window.matchMedia("(prefers-color-scheme: light)").matches) {
+      return "light";
+    }
+    return "dark";
+  }
+
+  function setTheme(theme, persist = true) {
+    currentTheme = theme === "light" ? "light" : "dark";
+    document.documentElement.dataset.theme = currentTheme;
+    if (persist) {
+      try {
+        localStorage.setItem("vault-theme", currentTheme);
+      } catch (error) {
+        console.warn("Unable to persist theme", error); // eslint-disable-line no-console
+      }
+    }
+    syncThemeToggle(currentTheme);
+  }
+
+  function syncThemeToggle(theme) {
+    const isLight = theme === "light";
+    themeLabel && (themeLabel.textContent = isLight ? "Light" : "Dark");
+    themeIconLight?.classList.toggle("hidden", !isLight);
+    themeIconDark?.classList.toggle("hidden", isLight);
+  }
 
   function setEntityFormMode(mode, entity) {
     if (!entityForm) return;
