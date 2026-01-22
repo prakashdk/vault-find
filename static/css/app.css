@@ -105,3 +105,11 @@ body {
 :root[data-theme="light"] .bg-slate-900\/70 a {
   color: inherit;
 }
+
+.entity-chip-icon {
+  color: rgba(248, 250, 252, 0.85);
+}
+
+:root[data-theme="light"] .entity-chip-icon {
+  color: #475569;
+}

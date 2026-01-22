@@ -416,7 +416,7 @@ document.addEventListener("DOMContentLoaded", () => {
           return `
             <button
               type="button"
-              class="flex items-center gap-3 rounded-2xl border border-white/5 bg-slate-950/70 px-3.5 py-2.5 text-left text-sm text-slate-100 hover:border-emerald-400/40 transition"
+              class="flex items-center gap-2.5 rounded-2xl border border-white/5 bg-slate-950/70 px-3.5 py-2.5 text-left text-sm text-slate-100 hover:border-emerald-400/40 transition"
               data-entity-open
               data-entity-id="${match.entity_id}"
               data-match-open
@@ -464,22 +464,18 @@ document.addEventListener("DOMContentLoaded", () => {
   function renderDataTypeIcon(type) {
     if (type === "link") {
       return `
-        <span class="inline-flex h-8 w-8 items-center justify-center rounded-xl border border-white/10 bg-white/5 text-slate-200" aria-hidden="true">
-          <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M10.59 13.41a2 2 0 0 1 0-2.82l3.18-3.18a2 2 0 0 1 2.82 0l.18.18a2 2 0 0 1 0 2.82l-3.18 3.18a2 2 0 0 1-2.82 0" />
-            <path d="M13.41 10.59a2 2 0 0 1 0 2.82l-3.18 3.18a2 2 0 0 1-2.82 0l-.18-.18a2 2 0 0 1 0-2.82l3.18-3.18a2 2 0 0 1 2.82 0" />
-          </svg>
-        </span>
+        <svg class="entity-chip-icon h-4 w-4 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M10.59 13.41a2 2 0 0 1 0-2.82l3.18-3.18a2 2 0 0 1 2.82 0l.18.18a2 2 0 0 1 0 2.82l-3.18 3.18a2 2 0 0 1-2.82 0" />
+          <path d="M13.41 10.59a2 2 0 0 1 0 2.82l-3.18 3.18a2 2 0 0 1-2.82 0l-.18-.18a2 2 0 0 1 0-2.82l3.18-3.18a2 2 0 0 1 2.82 0" />
+        </svg>
       `;
     }
 
     return `
-      <span class="inline-flex h-8 w-8 items-center justify-center rounded-xl border border-white/10 bg-white/5 text-slate-200" aria-hidden="true">
-        <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-          <rect x="3" y="10" width="18" height="11" rx="2" />
-          <path d="M7 10V7a5 5 0 0 1 10 0v3" />
-        </svg>
-      </span>
+      <svg class="entity-chip-icon h-4 w-4 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <rect x="3" y="10" width="18" height="11" rx="2" />
+        <path d="M7 10V7a5 5 0 0 1 10 0v3" />
+      </svg>
     `;
   }
 
