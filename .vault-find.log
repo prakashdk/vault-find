@@ -1,0 +1,12 @@
+INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+INFO:     Started parent process [58456]
+INFO:     Started server process [58549]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     Started server process [58548]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     127.0.0.1:57919 - "GET / HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57919 - "GET /static/css/app.css?v=1769069176 HTTP/1.1" 304 Not Modified
+INFO:     127.0.0.1:57920 - "GET /static/js/app.js?v=1769069176 HTTP/1.1" 304 Not Modified
+INFO:     127.0.0.1:57920 - "GET /favicon.ico HTTP/1.1" 404 Not Found
